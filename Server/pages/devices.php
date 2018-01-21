@@ -11,7 +11,9 @@
 
     <!-- Bootstrap -->
     <link href="../../assets/libs/bootstrap/bootstrap.min.css" rel="stylesheet">
+    <link href="../../assets/libs/datatables/datatables.min.css" rel="stylesheet">
     <link href="../../assets/css/index.css" rel="stylesheet">
+    <link href="../../assets/css/devices.css" rel="stylesheet">
 
 </head>
 <body>
@@ -47,55 +49,113 @@
         </button>
 
         <div class="row">
-            <div class="col-md-8 col-lg-offset-4">
+            <div class="col-md-10 col-lg-offset-2">
 
                 <div class="page-header">
-                    <h1>Cadastro de Dispositivos <small>Faça o cadastro dos dispositivos</small></h1>
+                    <h1>Cadastro de Dispositivos <small>Busque e faça o cadastro dos dispositivos</small></h1>
                 </div>
 
                 <div class="row">
-                    <table class="table table-striped table-bordered">
+                    <table id="devices" class="table table-striped table-bordered">
                         <thead>
                         <tr>
-                            <th>Name</th>
-                            <th>Email Address</th>
-                            <th>Mobile Number</th>
+                            <th>#</th>
+                            <th>Hostname</th>
+                            <th>IP</th>
+                            <th>Tipo</th>
+                            <th>Fabricante</th>
+                            <th>Modelo</th>
+                            <th>Ativo</th>
+                            <th>Cadastrado Em</th>
+                            <th colspan="4">Ações</th>
                         </tr>
                         </thead>
                         <tbody>
-                        <div class="row">
-                            <table class="table table-striped table-bordered">
-                                <thead>
-                                <tr>
-                                    <th>Name</th>
-                                    <th>Email Address</th>
-                                    <th>Mobile Number</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <?php
-                                    var_dump ($_SESSION);
-                                    /*if (isset($_SESSION['devices'])) {
-                                        echo $_SESSION['devices'];
-                                        /*foreach ($pdo->query($sql) as $row) {
-                                            echo '<tr>';
-                                            echo '<td>'. $row['name'] . '</td>';
-                                            echo '<td>'. $row['email'] . '</td>';
-                                            echo '<td>'. $row['mobile'] . '</td>';
-                                            echo '</tr>';
-                                        }
+                        <?php
+                            if (isset($_SESSION['devices'])) {
+                                foreach ($_SESSION['devices'] as $device) {
+                                    echo '<tr>';
+                                    echo '<td>'. $device->id . '</td>';
+                                    echo '<td>'. $device->hostname . '</td>';
+                                    echo '<td>'. $device->ip_address . '</td>';
+                                    echo '<td>'. $device->type . '</td>';
+                                    echo '<td>'. $device->manufacturer . '</td>';
+                                    echo '<td>'. $device->model . '</td>';
+                                    if ($device->active == 1) {
+                                        echo '<td>'. "Sim" . '</td>';
                                     } else {
-                                        echo '<td>'. $row['name'] . '</td>';
-                                    }*/
-                                ?>
-                                </tbody>
-                            </table>
-                        </div>
+                                        echo '<td>'. "Não" . '</td>';
+                                    }
+                                    echo '<td>'. gmdate("d-m-Y\TH:i:s\Z", $device->include_date) . '</td>';
+                                    echo '<td>';
+
+                                    if ($device->active == 1) {
+                                        echo '<form method="POST" action="../">
+                                                <input type="hidden" name="action" value="Devices/deactivate">
+                                                <input type="hidden" name="id" value="' . $device->id . '">
+                                                <button type="submit" class="btn btn-warning">Desativar</button>
+                                              </form>';
+                                    } else {
+                                        echo '<form method="POST" action="../">
+                                                <input type="hidden" name="action" value="Devices/activate">
+                                                <input type="hidden" name="id" value="' . $device->id . '">
+                                                <button type="submit" class="btn btn-primary">Ativar</button>
+                                              </form>';
+                                    }
+                                    echo '</td>';
+                                    echo '<td>';
+                                    echo
+                                              '<button type="button" class="edit-device btn btn-default" id="'. $device->id. '" class="btn btn-default">Editar</button>';
+                                    echo '</td>';
+                                    echo '<td>';
+                                    echo  '<button type="button" class="btn btn-default">SSH</button>';
+                                    echo '</td>';
+                                    echo '<td>';
+                                    echo '<form method="POST" action="../">
+                                                <input type="hidden" name="action" value="Devices/delete">
+                                                <input type="hidden" name="id" value="' . $device->id . '">
+                                                <button type="submit" class="btn btn-danger">Excluir</button>
+                                              </form>';
+                                    echo '</td>';
+                                    echo '</tr>';
+                                }
+                            } else {
+                                echo '<tr>';
+                                echo '<td colspan="9">'. "Nenhum dispositivo cadastrado" . '</td>';
+                                echo '<tr>';
+                            }
+                        ?>
                         </tbody>
                     </table>
                 </div>
 
+                <div class="row top-buffer">
+                    <div class="col-md-8">
+                        <h3>Cadastre ou modifique um dispositivo</h3>
+                        <form id="new-device" method="POST" action="../">
+                            <input type="hidden" name="action" id="form-action" value="Devices/newDevice">
+                            <label for="hostname" class="control-label">Hostname do dispositivo:</label>
+                            <input class="form-control" type="text" name="hostname" id="hostname">
 
+                            <label for="ip" class="control-label">IP do dispositivo:</label>
+                            <input class="form-control" type="text" name="ip" id="ip">
+
+                            <label for="type" class="control-label">Tipo do dispositivo:</label>
+                            <input class="form-control" type="text" name="type" id="type">
+
+                            <label for="manufacturer" class="control-label">Fabricante do dispositivo:</label>
+                            <input class="form-control" type="text" name="manufacturer" id="manufacturer">
+
+                            <label for="model" class="control-label">Modelo do dispositivo:</label>
+                            <input class="form-control" type="text" name="model" id="model">
+
+                            <div class="btn-group top-buffer pull-right" role="group">
+                                <button type="submit" class="btn btn-success" id="sent-button"> Inserir</button>
+                                <button type="reset" class="btn btn-warning" id="erase-button"> Apagar</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -104,6 +164,8 @@
 
 <script src="../../assets/libs/jquery/jquery.min.js"></script>
 <script src="../../assets/libs/bootstrap/bootstrap.min.js"></script>
+<script src="../../assets/libs/datatables/datatables.min.js"></script>
 <script src="../../assets/js/index.js"></script>
+<script src="../../assets/js/devices.js"></script>
 </body>
 </html>

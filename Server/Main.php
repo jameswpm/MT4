@@ -84,6 +84,13 @@ class Main
         }
         elseif ($_SERVER['REQUEST_METHOD'] == 'GET' && isset($_GET['action'])) {
             $queryStrings = array_filter(explode('/', $_GET['action']));
+
+        } elseif($_SERVER['REQUEST_METHOD'] == 'POST'){
+            $queryStrings = array_filter(explode('/', $_POST['action']));
+
+        }
+
+        if (!empty($queryStrings)) {
             $nameClass = 'Controller';
 
             foreach ($queryStrings as $key => $qs) {
@@ -99,7 +106,7 @@ class Main
                 throw $ex;
             }
 
-            $completeClassName = __NAMESPACE__ . "\\" .$nameClass;
+            $completeClassName = __NAMESPACE__ . "\\" . $nameClass;
             $class = new $completeClassName;
             $queryStrings = array_values($queryStrings);
 
@@ -109,44 +116,9 @@ class Main
             } else {
                 throw new ServerException("Method \"$nameMethod\" not found.");
             }
-
         } else {
-
-            $queryStrings = array_filter(explode('/', $_GET['action']));
-            $nameClass = 'Controller';
-
-            foreach ($queryStrings as $key => $qs) {
-                unset($queryStrings[$key]);
-                $nameClass .= '\\' . ucfirst($qs);
-                if (class_exists(__NAMESPACE__ . "\\" . $nameClass)) {
-                    break;
-                }
-            }
-
-            if (!class_exists(__NAMESPACE__ . "\\" . $nameClass) || $nameClass == 'Controller') {
-                $ex = new ServerException("Class \"$nameClass\" not found.");
-                throw $ex;
-            }
-
-            $completeClassName = __NAMESPACE__ . "\\" .$nameClass;
-            $class = new $completeClassName;
-            $queryStrings = array_values($queryStrings);
-
-
-            if (count($queryStrings) > 1) {
-                $nameMethod = $queryStrings[1];
-                if (method_exists($class, $nameMethod)) {
-                    $class->$nameMethod();
-                } else {
-                    throw new ServerException("Method \"$nameMethod\" not found.");
-                }
-            } else {
-                if (method_exists($class, 'view')) {
-                    $class->view();
-                } else {
-                    throw new ServerException('Error generating the page.');
-                }
-            }
+            throw new ServerException("Impossible to get the action for this request");
         }
+
     }
 }

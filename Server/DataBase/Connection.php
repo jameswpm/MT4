@@ -46,6 +46,11 @@ class Connection
      */
     public function open ($db)
     {
+        // Singleton
+        if (!empty($this->conn))
+        {
+            return $this->conn;
+        }
         
         //Set Values
         $userName   = isset($db['UserName'])    ? $db['UserName']   : null;
@@ -130,20 +135,7 @@ class Connection
         try {
             return $this->conn->prepare($sql);
         } catch (PDOException $e) {
-            throw new \Exception($e->getMessage(), $e->getCode());
+            throw new \Exception($e->getMessage());
         }
-    }
-
-
-    /**
-     * Method lastInsertId
-     * Returns the ID of last inserted line
-     * @access public
-     * @param string $name
-     * @return int
-     */
-    public function lastInsertId ($name = null)
-    {
-        return $this->conn->lastInsertId($name);
     }
 }
