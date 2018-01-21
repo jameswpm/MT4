@@ -56,7 +56,7 @@
                 </div>
 
                 <div class="row">
-                    <table id="devices" class="table table-striped table-bordered">
+                    <table id="devices" class="table table-striped table-bordered table-hover">
                         <thead>
                         <tr>
                             <th>#</th>
@@ -108,7 +108,11 @@
                                               '<button type="button" class="edit-device btn btn-default" id="'. $device->id. '" class="btn btn-default">Editar</button>';
                                     echo '</td>';
                                     echo '<td>';
-                                    echo  '<button type="button" class="btn btn-default">SSH</button>';
+                                    echo '<form method="POST" action="../">
+                                                <input type="hidden" name="action" value="SSH/view">
+                                                <input type="hidden" name="id" value="' . $device->id . '">
+                                                <button type="submit" class="btn btn-primary">SSH</button>
+                                          </form>';
                                     echo '</td>';
                                     echo '<td>';
                                     echo '<form method="POST" action="../">
@@ -164,7 +168,6 @@
 
 <script src="../../assets/libs/jquery/jquery.min.js"></script>
 <script src="../../assets/libs/bootstrap/bootstrap.min.js"></script>
-<script src="../../assets/libs/datatables/datatables.min.js"></script>
 <script src="../../assets/js/index.js"></script>
 <script src="../../assets/js/devices.js"></script>
 </body>

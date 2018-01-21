@@ -121,4 +121,18 @@ class Main
         }
 
     }
+
+    /**
+     * Get only one instance of Main class - Singleton pattern
+     * @return null|static
+     */
+    public static function getInstance()
+    {
+        static $instance = null;
+        if (null === $instance) {
+            $instance = new static();
+        }
+
+        return $instance;
+    }
 }

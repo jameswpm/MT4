@@ -134,9 +134,7 @@ class Devices
         $statement = $conn->prepare($sql);
         $statement->execute( [ $id]);
 
-        $teste = json_encode($statement->fetchAll());
-
-        echo $teste;
+        echo json_encode($statement->fetchAll());
 
     }
 
