@@ -15,7 +15,7 @@ trait Utils
     public static function dbConfig()
     {
         return array(
-            'DBName' => __DIR__. '/db/mt4.db',
+            'DBName' => __DIR__. '/../db/mt4.db',
             'Drive' => 'sqlite'
         );
     }

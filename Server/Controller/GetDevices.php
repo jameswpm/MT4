@@ -12,10 +12,24 @@ use Server\DataBase\Connection;
  */
 class GetDevices
 {
+    /**
+     * @var $devices
+     */
+    protected $devices;
+
+    public function __construct()
+    {
+        session_start();
+    }
 
     public function view()
     {
 
+        $_SESSION['devices'] = $this->devices;
+
+        header('Location: ' . "pages/devices.php");
+
+        exit();
     }
 
     /**
@@ -25,6 +39,14 @@ class GetDevices
     public function getAll ()
     {
         $conn = new Connection();
+        $this->devices = [];
+        foreach($conn->query('SELECT * FROM Devices;') as $row)
+        {
+            $this->devices[] = $row;
+        }
+
+        $this->view();
+
     }
 
 }

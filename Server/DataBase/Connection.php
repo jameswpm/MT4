@@ -102,7 +102,7 @@ class Connection
 
     /**
      * Method query
-     * Performs a SQL instruction and return objectos of type PDOStatement
+     * Performs a SQL instruction and return objects of type PDOStatement
      * @access public
      * @param string $sql
      * @throws \Exception
