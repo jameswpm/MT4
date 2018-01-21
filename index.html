@@ -26,9 +26,26 @@
         <ul class="list-unstyled components">
             <li class="active"><a href="#">Home</a></li>
 
-            <li><a href="pages/crud.html">Cadastro de Dispositivos</a></li>
-            <li><a href=pages/crypto.html">Módulo Criptografia</a></li>
-            <li><a href="pages/hash.html">Módulo Hash</a></li>
+            <li>
+                <form id="get-devices" method="GET" action="Server">
+                    <input type="hidden" name="action" value="getDevices/getAll">
+                    <a href="javascript:{}" onclick="document.getElementById('get-devices').submit();">Cadastro de Dispositivos</a>
+                </form>
+            </li>
+
+            <li>
+                <form id="get-crypto" method="GET" action="Server">
+                    <input type="hidden" name="action" value="getCrypto">
+                    <a href="javascript:{}" onclick="document.getElementById('get-crypto').submit();">Módulo Criptografia</a>
+                </form>
+            </li>
+
+            <li>
+                <form id="get-hash" method="GET" action="Server">
+                    <input type="hidden" name="action" value="getHash">
+                    <a href="javascript:{}" onclick="document.getElementById('get-devices').submit();">Módulo Hash</a>
+                </form>
+            </li>
 
         </ul>
 
