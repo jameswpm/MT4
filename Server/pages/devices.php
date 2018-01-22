@@ -11,7 +11,6 @@
 
     <!-- Bootstrap -->
     <link href="../../assets/libs/bootstrap/bootstrap.min.css" rel="stylesheet">
-    <link href="../../assets/libs/datatables/datatables.min.css" rel="stylesheet">
     <link href="../../assets/css/index.css" rel="stylesheet">
     <link href="../../assets/css/devices.css" rel="stylesheet">
 
@@ -32,7 +31,12 @@
             <li><a href="../../index.html">Home</a></li>
 
             <li class="active"><a href="#">Cadastro de Dispositivos</a></li>
-            <li><a href="crypto.html">Módulo Criptografia</a></li>
+            <li>
+                <form id="get-crypto" method="GET" action="../">
+                    <input type="hidden" name="action" value="Crypto/view">
+                    <a href="javascript:{}" onclick="document.getElementById('get-crypto').submit();">Módulo Criptografia</a>
+                </form>
+            </li>
             <li><a href="hash.html">Módulo Hash</a></li>
 
         </ul>
