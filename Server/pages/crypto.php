@@ -37,7 +37,12 @@ session_start();
                 </form>
             </li>
             <li class="active"><a href="#">Módulo Criptografia</a></li>
-            <li><a href="hash.html">Módulo Hash</a></li>
+            <li>
+                <form id="get-hash" method="GET" action="../">
+                    <input type="hidden" name="action" value="Hash/view">
+                    <a href="javascript:{}" onclick="document.getElementById('get-hash').submit();">Módulo Hash</a>
+                </form>
+            </li>
 
         </ul>
 
@@ -60,14 +65,12 @@ session_start();
                 </div>
 
                 <div class="row">
-                    <?php
-                    echo '<form id="cripto-form">
-                             <label for="original" class="control-label">Texto Original ou Cifra:</label>                                   
-                             <textarea  class="form-control" name="original" id="original" cols="30" rows="10" placeholder="Insira seu texto ou cifra aqui:"></textarea>
-                             <button type="submit" id="execute-crypto" class="btn btn-primary pull-right top-buffer">Criptografar</button>
-                             <button type="submit" id="execute-decipher" class="btn btn-primary pull-left top-buffer">Decifrar</button>
-                           </form>';
-                    ?>
+                    <form id="cripto-form">
+                         <label for="original" class="control-label">Texto Original ou Cifra:</label>
+                         <textarea  class="form-control" name="original" id="original" cols="30" rows="10" placeholder="Insira seu texto ou cifra aqui:"></textarea>
+                         <button type="submit" id="execute-crypto" class="btn btn-primary pull-right top-buffer">Criptografar</button>
+                         <button type="submit" id="execute-decipher" class="btn btn-primary pull-left top-buffer">Decifrar</button>
+                     </form>
                 </div>
             </div>
         </div>

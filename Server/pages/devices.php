@@ -37,7 +37,12 @@
                     <a href="javascript:{}" onclick="document.getElementById('get-crypto').submit();">Módulo Criptografia</a>
                 </form>
             </li>
-            <li><a href="hash.html">Módulo Hash</a></li>
+            <li>
+                <form id="get-hash" method="GET" action="../">
+                    <input type="hidden" name="action" value="Hash/view">
+                    <a href="javascript:{}" onclick="document.getElementById('get-hash').submit();">Módulo Hash</a>
+                </form>
+            </li>
 
         </ul>
 
@@ -109,7 +114,7 @@
                                     echo '</td>';
                                     echo '<td>';
                                     echo
-                                              '<button type="button" class="edit-device btn btn-default" id="'. $device->id. '" class="btn btn-default">Editar</button>';
+                                              '<button type="button" class="edit-device btn btn-default" id="'. $device->id. '">Editar</button>';
                                     echo '</td>';
                                     echo '<td>';
                                     echo '<form method="POST" action="../">

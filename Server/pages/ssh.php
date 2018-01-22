@@ -32,12 +32,17 @@ session_start();
 
             <li class="active"><a href="#">Cadastro de Dispositivos</a></li>
             <li>
-                <form id="get-crypto" method="GET" action="Server">
+                <form id="get-crypto" method="GET" action="../">
                     <input type="hidden" name="action" value="Crypto/view">
                     <a href="javascript:{}" onclick="document.getElementById('get-crypto').submit();">Módulo Criptografia</a>
                 </form>
             </li>
-            <li><a href="hash.html">Módulo Hash</a></li>
+            <li>
+                <form id="get-hash" method="GET" action="../">
+                    <input type="hidden" name="action" value="Hash/view">
+                    <a href="javascript:{}" onclick="document.getElementById('get-hash').submit();">Módulo Hash</a>
+                </form>
+            </li>
 
         </ul>
 
@@ -100,7 +105,7 @@ session_start();
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title" id="myModalLabel">Resultados SSH</h4>
+                <h4 class="modal-title" id="resultToSsh">Resultados SSH</h4>
             </div>
             <div class="modal-body">
                 <span id="message"></span>
