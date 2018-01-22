@@ -13,7 +13,7 @@ use Server\Utils;
  * @author James Miranda <jameswpm@gmail.com>
  * @package Server\Controller
  */
-class Hash
+class Hash extends Controller
 {
     /**
      * @var $text_to_hash
@@ -21,14 +21,9 @@ class Hash
     protected $text_to_hash;
 
 
-    public function __construct()
-    {
-        session_start();
-    }
-
     /**
      * Method view
-     * Method that loads the devices page info and redirect the user to the page
+     * Method that loads the hash page
      */
     public function view()
     {

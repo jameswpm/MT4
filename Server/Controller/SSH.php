@@ -12,7 +12,7 @@ use Server\Utils;
  * @author James Miranda <jameswpm@gmail.com>
  * @package Server\Controller
  */
-class SSH
+class SSH extends Controller
 {
     /**
      * @var $device
@@ -24,14 +24,9 @@ class SSH
      */
     protected $ssh_client;
 
-    public function __construct()
-    {
-        session_start();
-    }
-
     /**
      * Method view
-     * Method that loads the devices page info and redirect the user to the page
+     * Method that the SSh connection page for one specific device
      */
     public function view()
     {

@@ -11,17 +11,12 @@ use Server\Utils;
  * @author James Miranda <jameswpm@gmail.com>
  * @package Server\Controller
  */
-class Devices
+class Devices extends Controller
 {
     /**
-     * @var $devices
+     * @var array $devices
      */
     protected $devices;
-
-    public function __construct()
-    {
-        session_start();
-    }
 
     /**
      * Method view

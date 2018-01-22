@@ -13,22 +13,17 @@ use Server\Utils;
  * @author James Miranda <jameswpm@gmail.com>
  * @package Server\Controller
  */
-class Crypto
+class Crypto extends Controller
 {
+
     /**
      * @var $original_text
      */
     protected $original_text;
 
-
-    public function __construct()
-    {
-        session_start();
-    }
-
     /**
      * Method view
-     * Method that loads the devices page info and redirect the user to the page
+     * Method that loads crypto page
      */
     public function view()
     {
